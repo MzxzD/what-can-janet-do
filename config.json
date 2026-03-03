@@ -1,0 +1,19 @@
+{
+  "domain": "whatcanjanet.heyjanet.bot",
+  "title": "What can Janet do?",
+  "tagline": "Self-updating portfolio of the Janet AI ecosystem. Repos, descriptions, and releases from GitHub.",
+  "repos": [
+    "MzxzD/Janet-Projects",
+    "MzxzD/Janet-Awakening",
+    "MzxzD/Janet-seed",
+    "MzxzD/home-assistant-janet",
+    "MzxzD/homebrew-janet"
+  ],
+  "readmeMaxLength": 400,
+  "showStars": true,
+  "showReleases": true,
+  "footerLinks": [
+    { "url": "https://heyjanet.bot", "label": "heyjanet.bot" },
+    { "url": "https://xn--yckwaps3i.com", "label": "ジャネット.com" }
+  ]
+}

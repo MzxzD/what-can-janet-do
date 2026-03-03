@@ -1,0 +1,48 @@
+# What can Janet do?
+
+Self-updating portfolio webpage for the Janet AI ecosystem. Pulls repo list, README descriptions, and release info from GitHub on a schedule.
+
+## Quick Start
+
+```bash
+node build.mjs
+```
+
+Generates `index.html` from `template.html` and `config.json`.
+
+## Config
+
+Edit `config.json`:
+
+- **domain** – Custom domain for CNAME (e.g. `whatcanjanet.heyjanet.bot`)
+- **repos** – List of `owner/repo` to fetch
+- **readmeMaxLength** – Max chars for README excerpt (default 400)
+- **showStars** / **showReleases** – Toggle badges and release links
+
+## Deploy
+
+### Cloudflare Pages
+
+1. Create a repo (e.g. `MzxzD/what-can-janet-do`) and push this project
+2. Connect to Cloudflare Pages (Build: none, output: root)
+3. Add custom domain in Cloudflare Pages → Custom domains
+4. Set `CNAME` file to your domain, or add domain in Pages settings
+
+### GitHub Actions
+
+The workflow runs:
+
+- On push to `main` or `master`
+- Every 6 hours (`cron: '0 */6 * * *'`)
+
+It fetches GitHub data, rebuilds `index.html`, and commits if changed. Cloudflare Pages will redeploy on push.
+
+## Local Build
+
+```bash
+# Without token (60 req/hr limit)
+node build.mjs
+
+# With token for higher limits
+GITHUB_TOKEN=ghp_xxx node build.mjs
+```

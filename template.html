@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITLE}} — Janet AI Ecosystem</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --janet-blue: #87ceeb;
+            --janet-blue-dim: rgba(135, 206, 235, 0.15);
+            --bg-dark: #0a0d12;
+            --bg-card: #12171f;
+            --text: #e8ecf2;
+            --text-muted: #8b9aad;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Syne', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 50% at 50% 0%, var(--janet-blue-dim) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .hero h1 {
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--janet-blue);
+            text-shadow: 0 0 60px rgba(135, 206, 235, 0.4);
+            margin-bottom: 0.5rem;
+        }
+        .hero .tagline {
+            font-size: clamp(0.95rem, 2vw, 1.2rem);
+            color: var(--text-muted);
+            max-width: 540px;
+            margin-bottom: 1rem;
+        }
+        .hero .sub {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+        .hero .build-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            opacity: 0.5;
+            margin-top: 1rem;
+        }
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-decoration: none;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(6px); }
+        }
+
+        section {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        section h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--janet-blue);
+            margin-bottom: 2rem;
+            letter-spacing: -0.01em;
+        }
+        .vision blockquote {
+            font-size: 1.2rem;
+            color: var(--text);
+            border-left: 4px solid var(--janet-blue);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+        }
+        .vision p { color: var(--text-muted); margin-bottom: 1rem; }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(135, 206, 235, 0.15);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .project-card:hover {
+            border-color: rgba(135, 206, 235, 0.4);
+            box-shadow: 0 0 30px rgba(135, 206, 235, 0.08);
+        }
+        .project-card h3 {
+            font-size: 1.2rem;
+            color: var(--janet-blue);
+            margin-bottom: 0.5rem;
+        }
+        .project-card h3 a {
+            color: inherit;
+            text-decoration: none;
+        }
+        .project-card h3 a:hover { text-decoration: underline; }
+        .project-card .meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+        .project-card .meta span { margin-right: 0.75rem; }
+        .project-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
+        .project-card .release {
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+        .project-card .release a {
+            color: var(--janet-blue);
+            text-decoration: none;
+        }
+        .project-card .release a:hover { text-decoration: underline; }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .principle {
+            background: var(--bg-card);
+            border: 1px solid rgba(135, 206, 235, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 0.9rem;
+        }
+        .principle strong { color: var(--janet-blue); }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(135, 206, 235, 0.1);
+        }
+        footer a {
+            color: var(--janet-blue);
+            text-decoration: none;
+        }
+        footer a:hover { text-decoration: underline; }
+        footer .domains {
+            margin-top: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <h1>{{TITLE}}</h1>
+        <p class="tagline">{{TAGLINE}}</p>
+        <p class="sub">Open source · Voice-first · Offline-first · Constitutional AI</p>
+        <p class="build-time">Last updated: {{BUILD_TIME}}</p>
+        <a href="#projects" class="scroll-hint">Scroll ↓</a>
+    </header>
+
+    <section id="vision" class="vision">
+        <h2>The Vision</h2>
+        <blockquote>
+            Replace proprietary AI assistants (Siri, Alexa, Google) with an open, privacy-respecting, offline-first alternative that you truly own and control.
+        </blockquote>
+        <p>Janet spans a full operating system (JanetOS), native mobile apps, IDE integration, music creation, and home automation — all built on constitutional AI and 16 axioms that govern behavior.</p>
+    </section>
+
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="projects-grid">
+{{REPO_CARDS}}
+        </div>
+    </section>
+
+    <section id="principles">
+        <h2>Principles</h2>
+        <div class="principles-grid">
+            <div class="principle"><strong>Privacy First</strong> — Cluster-only, no cloud</div>
+            <div class="principle"><strong>User Sovereignty</strong> — You own your data</div>
+            <div class="principle"><strong>Offline Capable</strong> — Core features work offline</div>
+            <div class="principle"><strong>Constitutional</strong> — 16 axioms govern behavior</div>
+            <div class="principle"><strong>Voice-First</strong> — Natural conversation</div>
+            <div class="principle"><strong>Cross-Platform</strong> — iOS, macOS, Linux, Windows</div>
+            <div class="principle"><strong>Open Source</strong> — GPL/MIT licensing</div>
+        </div>
+    </section>
+
+    <footer>
+        <p>{{FOOTER_LINKS}}</p>
+        <p class="domains">wss://heyjanet.bot · wss://xn--yckwaps3i.com</p>
+    </footer>
+</body>
+</html>
