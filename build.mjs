@@ -140,10 +140,12 @@ async function main() {
   const buildTime = new Date().toISOString().replace('T', ' ').slice(0, 19);
 
   const title = escapeHtml(config.title || 'What can Janet do?');
+  const domain = config.domain || 'heyjanet.org';
   const html = template
     .replace(/\{\{TITLE\}\}/g, title)
     .replace('{{TAGLINE}}', escapeHtml(config.tagline || ''))
     .replace('{{BUILD_TIME}}', escapeHtml(buildTime))
+    .replace('{{DOMAIN}}', domain)
     .replace('{{REPO_CARDS}}', cards.join('\n'))
     .replace('{{FOOTER_LINKS}}', renderFooterLinks());
 
