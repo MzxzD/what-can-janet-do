@@ -7,25 +7,65 @@
     <title>{{TITLE}} — Janet AI Ecosystem</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --janet-blue: #87ceeb;
-            --janet-blue-dim: rgba(135, 206, 235, 0.15);
-            --bg-dark: #0a0d12;
-            --bg-card: #12171f;
-            --text: #e8ecf2;
-            --text-muted: #8b9aad;
+            --janet-cyan: #5eead4;
+            --janet-blue: #38bdf8;
+            --janet-purple: #a78bfa;
+            --janet-glow: rgba(94, 234, 212, 0.2);
+            --glass-bg: rgba(20, 25, 35, 0.6);
+            --glass-bg-solid: #141923;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-border-bright: rgba(94, 234, 212, 0.2);
+            --bg-dark: #0a0e14;
+            --bg-gradient: radial-gradient(ellipse 120% 80% at 50% -10%, rgba(94, 234, 212, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 80% 60% at 90% 50%, rgba(167, 139, 250, 0.06) 0%, transparent 45%),
+                linear-gradient(180deg, #0a0e14 0%, #0d1117 50%, #0a0e14 100%);
+            --text: #e6edf5;
+            --text-muted: #8b9bb3;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
         body {
-            font-family: 'Syne', sans-serif;
+            font-family: 'Outfit', sans-serif;
             background: var(--bg-dark);
             color: var(--text);
-            line-height: 1.6;
+            line-height: 1.65;
             overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: var(--bg-gradient);
+            z-index: -2;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Aero glass panel base */
+        .glass-panel {
+            background: var(--glass-bg-solid);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        }
+        @supports (backdrop-filter: blur(20px)) or (-webkit-backdrop-filter: blur(20px)) {
+            .glass-panel {
+                background: var(--glass-bg);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-color: var(--glass-border);
+            }
         }
 
         .hero {
@@ -37,39 +77,65 @@
             text-align: center;
             padding: 2rem;
             position: relative;
+            isolation: isolate;
         }
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse 80% 50% at 50% 0%, var(--janet-blue-dim) 0%, transparent 60%);
-            pointer-events: none;
+        .hero .hero-inner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+        .hero .mascot {
+            width: clamp(120px, 25vw, 200px);
+            height: auto;
+            margin-bottom: 1rem;
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(94, 234, 212, 0.15);
+            animation: heroTitle 1s ease-out;
         }
         .hero h1 {
-            font-size: clamp(2rem, 8vw, 4rem);
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            color: var(--janet-blue);
-            text-shadow: 0 0 60px rgba(135, 206, 235, 0.4);
-            margin-bottom: 0.5rem;
+            font-size: clamp(2.25rem, 9vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--text);
+            margin-bottom: 0.6rem;
+            position: relative;
+            animation: heroTitle 1s ease-out 0.1s both;
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--janet-cyan), var(--janet-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         .hero .tagline {
-            font-size: clamp(0.95rem, 2vw, 1.2rem);
+            font-size: clamp(0.95rem, 2.2vw, 1.15rem);
+            font-weight: 300;
             color: var(--text-muted);
-            max-width: 540px;
-            margin-bottom: 1rem;
+            max-width: 520px;
+            margin-bottom: 0.75rem;
+            animation: heroTitle 1s ease-out 0.2s both;
         }
         .hero .sub {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
-            opacity: 0.7;
+            opacity: 0.8;
+            letter-spacing: 0.04em;
+            animation: heroTitle 1s ease-out 0.3s both;
         }
         .hero .build-time {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-muted);
             opacity: 0.5;
-            margin-top: 1rem;
+            margin-top: 1.25rem;
+            animation: heroTitle 1s ease-out 0.45s both;
+        }
+        @keyframes heroTitle {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .scroll-hint {
             position: absolute;
@@ -77,83 +143,191 @@
             left: 50%;
             transform: translateX(-50%);
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-decoration: none;
-            animation: bounce 2s ease-in-out infinite;
+            letter-spacing: 0.05em;
+            animation: bounce 2.5s ease-in-out infinite;
         }
         @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(6px); }
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.8; }
+            50% { transform: translateX(-50%) translateY(8px); opacity: 1; }
         }
 
         section {
-            max-width: 960px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
+            position: relative;
+            z-index: 0;
         }
         section h2 {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 4vw, 2.25rem);
             font-weight: 600;
-            color: var(--janet-blue);
+            color: var(--text);
             margin-bottom: 2rem;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.02em;
+        }
+        section h2::after {
+            content: '';
+            display: block;
+            width: 48px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--janet-cyan), var(--janet-blue));
+            border-radius: 2px;
+            margin-top: 0.5rem;
         }
         .vision blockquote {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
+            font-weight: 400;
             color: var(--text);
-            border-left: 4px solid var(--janet-blue);
+            border-left: 3px solid var(--janet-cyan);
             padding-left: 1.5rem;
             margin: 2rem 0;
+            opacity: 0.95;
         }
-        .vision p { color: var(--text-muted); margin-bottom: 1rem; }
+        .vision p { color: var(--text-muted); margin-bottom: 1rem; font-size: 1rem; }
+
+        /* Double Soul section - chip/soul unison aesthetic */
+        #double-soul {
+            position: relative;
+        }
+        #double-soul .section-intro {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+        }
+        #double-soul .double-soul-card {
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        #double-soul .double-soul-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--glass-border-bright), transparent);
+            border-radius: 16px 16px 0 0;
+        }
+        #double-soul h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--janet-cyan);
+            margin-bottom: 0.75rem;
+        }
+        #double-soul p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+        #double-soul .easter-egg {
+            margin-top: 1rem;
+        }
+        #double-soul .easter-egg a {
+            color: var(--janet-blue);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        #double-soul .easter-egg a:hover { text-decoration: underline; text-underline-offset: 2px; }
+        #double-soul .easter-egg .hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            opacity: 0.7;
+        }
+        #double-soul .soul-unison-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 2rem 0;
+            padding: 1rem;
+        }
+        #double-soul .soul-unison-visual span {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--janet-cyan), var(--janet-blue));
+            opacity: 0.8;
+        }
+        #double-soul .soul-unison-visual span.plus {
+            width: 16px;
+            height: 16px;
+            background: none;
+            color: var(--janet-cyan);
+            font-size: 1rem;
+            line-height: 1;
+        }
+        #double-soul .soul-label {
+            position: absolute;
+            top: 0.75rem;
+            right: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            color: var(--janet-cyan);
+            opacity: 0.6;
+        }
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 1.5rem;
         }
         .project-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(135, 206, 235, 0.15);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            background: var(--glass-bg-solid);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 1.75rem;
+            transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+        @supports (backdrop-filter: blur(16px)) or (-webkit-backdrop-filter: blur(16px)) {
+            .project-card {
+                background: rgba(20, 25, 35, 0.5);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+            }
         }
         .project-card:hover {
-            border-color: rgba(135, 206, 235, 0.4);
-            box-shadow: 0 0 30px rgba(135, 206, 235, 0.08);
+            border-color: var(--glass-border-bright);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25), 0 0 30px rgba(94, 234, 212, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
         }
         .project-card h3 {
             font-size: 1.2rem;
-            color: var(--janet-blue);
+            font-weight: 600;
+            color: var(--janet-cyan);
             margin-bottom: 0.5rem;
         }
         .project-card h3 a {
             color: inherit;
             text-decoration: none;
         }
-        .project-card h3 a:hover { text-decoration: underline; }
+        .project-card h3 a:hover { text-decoration: underline; text-underline-offset: 3px; }
         .project-card .meta {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             color: var(--text-muted);
             margin-bottom: 0.75rem;
         }
         .project-card .meta span { margin-right: 0.75rem; }
         .project-card p {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
             margin-bottom: 0.75rem;
+            line-height: 1.6;
         }
         .project-card .release {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             margin-top: 0.5rem;
         }
         .project-card .release a {
             color: var(--janet-blue);
             text-decoration: none;
         }
-        .project-card .release a:hover { text-decoration: underline; }
+        .project-card .release a:hover { text-decoration: underline; text-underline-offset: 2px; }
 
         .principles-grid {
             display: grid;
@@ -161,47 +335,103 @@
             gap: 1rem;
         }
         .principle {
-            background: var(--bg-card);
-            border: 1px solid rgba(135, 206, 235, 0.1);
-            border-radius: 8px;
-            padding: 1rem;
+            background: var(--glass-bg-solid);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.1rem;
             font-size: 0.9rem;
+            transition: border-color 0.2s, background 0.2s;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.03);
         }
-        .principle strong { color: var(--janet-blue); }
+        @supports (backdrop-filter: blur(16px)) or (-webkit-backdrop-filter: blur(16px)) {
+            .principle {
+                background: rgba(20, 25, 35, 0.5);
+                backdrop-filter: blur(16px);
+                -webkit-backdrop-filter: blur(16px);
+            }
+        }
+        .principle:hover {
+            border-color: var(--glass-border-bright);
+            background: rgba(25, 30, 42, 0.6);
+        }
+        .principle strong { color: var(--janet-cyan); font-weight: 600; }
 
         footer {
             text-align: center;
-            padding: 3rem 2rem;
-            border-top: 1px solid rgba(135, 206, 235, 0.1);
+            padding: 3.5rem 2rem;
+            border-top: 1px solid var(--glass-border);
+            position: relative;
+            z-index: 0;
         }
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--janet-cyan), transparent);
+            opacity: 0.6;
+        }
+        footer p { margin-bottom: 0.5rem; }
         footer a {
-            color: var(--janet-blue);
+            color: var(--janet-cyan);
             text-decoration: none;
         }
-        footer a:hover { text-decoration: underline; }
+        footer a:hover { text-decoration: underline; text-underline-offset: 2px; }
         footer .domains {
             margin-top: 1rem;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
         }
     </style>
 </head>
 <body>
     <header class="hero">
-        <h1>{{TITLE}}</h1>
-        <p class="tagline">{{TAGLINE}}</p>
-        <p class="sub">Open source · Voice-first · Offline-first · Constitutional AI</p>
-        <p class="build-time">Last updated: {{BUILD_TIME}}</p>
-        <a href="#projects" class="scroll-hint">Scroll ↓</a>
+        <div class="hero-inner">
+            <img src="assets/janet-mascot.png" alt="Janet" class="mascot">
+            <h1><span>{{TITLE}}</span></h1>
+            <p class="tagline">{{TAGLINE}}</p>
+            <p class="sub">Open source · Voice-first · Offline-first · Constitutional AI</p>
+            <p class="build-time">Last updated: {{BUILD_TIME}}</p>
+        </div>
+        <a href="#vision" class="scroll-hint">Scroll ↓</a>
     </header>
 
     <section id="vision" class="vision">
         <h2>The Vision</h2>
+        <p class="section-intro">Here's the big picture.</p>
         <blockquote>
             Replace proprietary AI assistants (Siri, Alexa, Google) with an open, privacy-respecting, offline-first alternative that you truly own and control.
         </blockquote>
         <p>Janet spans a full operating system (JanetOS), native mobile apps, IDE integration, music creation, and home automation — all built on constitutional AI and 16 axioms that govern behavior.</p>
+    </section>
+
+    <section id="double-soul">
+        <h2>Double Soul</h2>
+        <p class="section-intro">Ever wanted one assistant that could also control your browser, 3D app, or smart glasses? That's what Double Soul is about.</p>
+        <div class="glass-panel double-soul-card">
+            <span class="soul-label">SOUL UNISON</span>
+            <h3>What is Double Soul?</h3>
+            <p>Janet has one core "soul" — who she is, her memory, her axioms. She can extend into other worlds: the browser, 3D modeling, smart glasses, and more. Each extension is a second "soul" that talks to that world. So <strong>Double Soul</strong> = Janet + one of those extensions. Think of it like your favorite character getting a power-up in a new world — same heart, new abilities.</p>
+        </div>
+        <div class="glass-panel double-soul-card">
+            <h3>How does it work?</h3>
+            <p>Janet's core (janet-seed) stays in charge. The Double Soul is the bridge: it translates between you and that other system. <strong>Soul Check</strong> (Axiom 10) makes sure risky actions are confirmed before they run. Examples: browse the web (<strong>JanetXPinchTab</strong>), create 3D (<strong>JanetXBlender</strong>), wear Janet on your glasses (<strong>JanetXHalo</strong>), and more.</p>
+            <div class="soul-unison-visual">
+                <span></span><span class="plus">+</span><span></span>
+            </div>
+        </div>
+        <div class="glass-panel double-soul-card">
+            <h3>Where does the name come from?</h3>
+            <p>It's about architecture: one constitutional soul (identity, rules, memory) plus one domain soul (the bridge to Blender, the web, etc.). Two souls in one system — hence "Double Soul." If you grew up with <a href="https://megaman.fandom.com/wiki/Double_Soul" target="_blank" rel="noopener noreferrer" title="Inspired by the Battle Network / NT Warrior transformation">Mega Man NT Warrior</a> (Rockman.EXE), think <a href="https://megaman.fandom.com/wiki/Double_Soul" target="_blank" rel="noopener noreferrer" title="Soul Unison — MegaMan.EXE uniting with an allied Navi to gain new powers">Soul Unison</a> — same idea.</p>
+            <p class="easter-egg">
+                <a href="https://megaman.fandom.com/wiki/Double_Soul" target="_blank" rel="noopener noreferrer">Mega Man wiki: Double Soul</a>
+                <span class="hint">— ソウルユニゾン</span>
+            </p>
+        </div>
     </section>
 
     <section id="projects">
