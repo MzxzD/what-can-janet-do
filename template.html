@@ -13,6 +13,8 @@
             --janet-cyan: #5eead4;
             --janet-blue: #38bdf8;
             --janet-purple: #a78bfa;
+            --sage-gold: #d4a857;
+            --sage-gold-dim: rgba(212, 168, 87, 0.38);
             --janet-glow: rgba(94, 234, 212, 0.2);
             --glass-bg: rgba(20, 25, 35, 0.6);
             --glass-bg-solid: #141923;
@@ -20,6 +22,7 @@
             --glass-border-bright: rgba(94, 234, 212, 0.2);
             --bg-dark: #0a0e14;
             --bg-gradient: radial-gradient(ellipse 120% 80% at 50% -10%, rgba(94, 234, 212, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 90% 50% at 20% 30%, rgba(212, 168, 87, 0.06), transparent 45%),
                 radial-gradient(ellipse 80% 60% at 90% 50%, rgba(167, 139, 250, 0.06) 0%, transparent 45%),
                 linear-gradient(180deg, #0a0e14 0%, #0d1117 50%, #0a0e14 100%);
             --text: #e6edf5;
@@ -125,13 +128,13 @@
             animation: heroTitle 1s ease-out 0.22s both;
         }
         .hero .guide-cta a {
-            color: var(--janet-cyan);
+            color: var(--sage-gold);
             text-decoration: none;
-            border-bottom: 1px solid rgba(94, 234, 212, 0.35);
+            border-bottom: 1px solid var(--sage-gold-dim);
             padding-bottom: 1px;
         }
         .hero .guide-cta a:hover {
-            border-bottom-color: var(--janet-cyan);
+            border-bottom-color: var(--sage-gold);
             filter: brightness(1.08);
         }
         .hero .sub {
@@ -392,7 +395,7 @@
         }
         footer p { margin-bottom: 0.5rem; }
         footer .guide-link { margin-top: 0.75rem; font-size: 0.92rem; }
-        footer .guide-link a { color: var(--janet-blue); }
+        footer .guide-link a { color: var(--sage-gold); }
         footer a {
             color: var(--janet-cyan);
             text-decoration: none;
@@ -403,6 +406,138 @@
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.85rem;
             color: var(--text-muted);
+        }
+
+        /* TRY IT YOURSELF — Great Sage accent */
+        #try-yourself h2::after {
+            background: linear-gradient(90deg, var(--sage-gold), var(--janet-cyan));
+            width: 64px;
+        }
+        #try-yourself .section-intro { color: var(--text-muted); margin-bottom: 1rem; max-width: 40rem; }
+        #try-yourself .try-remote-card {
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--sage-gold-dim);
+        }
+        #try-yourself .try-remote-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--sage-gold);
+            margin-bottom: 0.5rem;
+        }
+        #try-yourself .try-remote-card p { font-size: 0.92rem; margin-bottom: 0.75rem; }
+        #try-yourself .try-remote-card a {
+            display: inline-block;
+            color: var(--janet-cyan);
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(94, 234, 212, 0.35);
+        }
+        #try-yourself .try-remote-card a:hover { border-bottom-color: var(--janet-cyan); }
+        #try-yourself .try-honest {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 1.25rem;
+        }
+        #try-yourself .wish-label {
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--sage-gold);
+            margin: 1.5rem 0 0.65rem;
+            opacity: 0.9;
+        }
+        #try-yourself .wish-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        #try-yourself .wish-card {
+            text-align: left;
+            cursor: pointer;
+            border-radius: 14px;
+            border: 1px solid var(--glass-border);
+            background: rgba(20, 25, 35, 0.65);
+            padding: 1rem 1.1rem;
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+        @supports (backdrop-filter: blur(16px)) {
+            #try-yourself .wish-card {
+                background: rgba(20, 25, 35, 0.45);
+                backdrop-filter: blur(14px);
+            }
+        }
+        #try-yourself .wish-card:hover {
+            border-color: var(--sage-gold-dim);
+        }
+        #try-yourself .wish-card[aria-checked="true"] {
+            border-color: var(--janet-cyan);
+            box-shadow: 0 0 0 1px rgba(94, 234, 212, 0.25), 0 6px 24px rgba(0, 0, 0, 0.2);
+            background: rgba(94, 234, 212, 0.06);
+        }
+        #try-yourself .wish-card .wc-title {
+            font-weight: 600;
+            font-size: 0.98rem;
+            margin-bottom: 0.35rem;
+        }
+        #try-yourself .wish-card .wc-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+        #try-yourself .wish-card .wc-formula {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            color: var(--sage-gold);
+            margin-top: 0.5rem;
+            opacity: 0.85;
+            word-break: break-all;
+        }
+        #try-yourself .composer-panel {
+            margin-top: 1.75rem;
+            padding: 0;
+            overflow: hidden;
+        }
+        #try-yourself .composer-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.55rem 0.85rem;
+            background: rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid var(--glass-border);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--sage-gold);
+        }
+        #try-yourself .composer-copy {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.65rem;
+            cursor: pointer;
+            background: rgba(212, 168, 87, 0.15);
+            color: var(--sage-gold);
+            border: 1px solid var(--sage-gold-dim);
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+        }
+        #try-yourself .composer-copy:hover { background: rgba(212, 168, 87, 0.28); }
+        #try-yourself .composer-copy.copied { color: var(--janet-cyan); border-color: rgba(94, 234, 212, 0.4); }
+        #try-yourself #composer-output {
+            margin: 0;
+            padding: 1rem 1.1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            line-height: 1.5;
+            color: #c8d4e4;
+            white-space: pre-wrap;
+            word-break: break-word;
+            max-height: 22rem;
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -453,6 +588,67 @@
         </div>
     </section>
 
+    <section id="try-yourself" aria-labelledby="try-yourself-heading">
+        <h2 id="try-yourself-heading"><span style="color: var(--sage-gold);">TRY IT YOURSELF!</span></h2>
+        <p class="section-intro">Turn on what you want below — we stitch together <strong>real Homebrew commands</strong> from the public <a href="https://github.com/MzxzD/homebrew-janet" target="_blank" rel="noopener noreferrer">MzxzD/janet</a> tap. No cloud, no guesswork: copy, paste in Terminal, then follow the hints.</p>
+
+        <div class="glass-panel try-remote-card">
+            <h3>Remote Janet from anywhere</h3>
+            <p>After you install, use our step-by-step Tailscale guide for iPhone, Cursor, and Continue.</p>
+            <p><a href="remote-access-tailscale.html">Open the Remote Janet · Tailscale guide →</a></p>
+        </div>
+
+        <p class="try-honest"><strong>Pick one base stack</strong> (mesh, meta Janet, janet-seed only, or all-in-one). Then add optional extras. Conflicts are resolved automatically — e.g. <strong>janet-mesh</strong> already includes Janet + janet-peer + Tailscale.</p>
+
+        <div class="wish-label" id="wish-base-label">Base stack — choose one</div>
+        <div class="wish-grid" role="radiogroup" aria-labelledby="wish-base-label">
+            <button type="button" class="wish-card" role="radio" aria-checked="false" data-tier="base" data-feature="mesh">
+                <div class="wc-title">Cluster mesh · Tailscale</div>
+                <div class="wc-desc">Ultimate-style overlay: Janet + janet-peer + Tailscale (<strong>janet-mesh</strong>).</div>
+                <div class="wc-formula">brew install MzxzD/janet/janet-mesh</div>
+            </button>
+            <button type="button" class="wish-card" role="radio" aria-checked="false" data-tier="base" data-feature="metajanet">
+                <div class="wc-title">Full Janet meta</div>
+                <div class="wc-desc">Ecosystem entry: janet-seed + menu bar stack + recommended add-ons (<strong>janet</strong>).</div>
+                <div class="wc-formula">brew install MzxzD/janet/janet</div>
+            </button>
+            <button type="button" class="wish-card" role="radio" aria-checked="false" data-tier="base" data-feature="seed">
+                <div class="wc-title">Core API only</div>
+                <div class="wc-desc">Minimal <strong>janet-seed</strong> — API / brain without the full meta formula.</div>
+                <div class="wc-formula">brew install MzxzD/janet/janet-seed</div>
+            </button>
+            <button type="button" class="wish-card" role="radio" aria-checked="false" data-tier="base" data-feature="janetall">
+                <div class="wc-title">All-in-one (janet-all)</div>
+                <div class="wc-desc">Single formula: API + menu bar from public janet-seed tarball (<strong>janet-all</strong>).</div>
+                <div class="wc-formula">brew install MzxzD/janet/janet-all</div>
+            </button>
+        </div>
+
+        <div class="wish-label" id="wish-addon-label">Optional add-ons</div>
+        <div class="wish-grid" role="group" aria-labelledby="wish-addon-label">
+            <button type="button" class="wish-card" role="checkbox" aria-checked="false" data-tier="addon" data-feature="awakening">
+                <div class="wc-title">Janet Awakening (IDE)</div>
+                <div class="wc-desc">Continue.dev / IDE-friendly defaults on top of janet-seed.</div>
+                <div class="wc-formula">+ MzxzD/janet/janet-awakening</div>
+            </button>
+            <button type="button" class="wish-card" role="checkbox" aria-checked="false" data-tier="addon" data-feature="toolchain">
+                <div class="wc-title">Apple Silicon toolchain</div>
+                <div class="wc-desc">Optional native build helpers (<strong>janet-arm64-toolchain</strong>).</div>
+                <div class="wc-formula">+ MzxzD/janet/janet-arm64-toolchain</div>
+            </button>
+        </div>
+
+        <div class="glass-panel composer-panel">
+            <div class="composer-head">
+                <span>Your install script</span>
+                <button type="button" class="composer-copy" id="composer-copy" aria-label="Copy script">copy</button>
+            </div>
+            <pre id="composer-output" tabindex="0"># Select a base stack above. Curated on this page — not AI-generated.
+
+brew tap MzxzD/janet</pre>
+        </div>
+    </section>
+
     <section id="projects">
         <h2>Projects</h2>
         <div class="projects-grid">
@@ -478,5 +674,6 @@
         <p class="guide-link"><a href="remote-access-tailscale.html">Great Sage · Remote Janet (Tailscale) — operator guide</a></p>
         <p class="domains">wss://heyjanet.bot · wss://xn--yckwaps3i.com</p>
     </footer>
+    <script defer src="assets/try-it-yourself.js"></script>
 </body>
 </html>

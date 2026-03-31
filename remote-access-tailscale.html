@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Connect to Janet from anywhere with Tailscale — copy-paste setup for Homebrew, firewall, iPhone, Cursor, and Continue.">
+    <link rel="canonical" href="https://heyjanet.org/remote-access-tailscale.html">
+    <title>Remote Janet · Tailscale guide — Great Sage / What can Janet do?</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --janet-cyan: #5eead4;
+            --janet-blue: #38bdf8;
+            --sage-gold: #d4a857;
+            --sage-gold-dim: rgba(212, 168, 87, 0.38);
+            --glass: rgba(20, 25, 35, 0.72);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --bg: #0a0e14;
+            --text: #e6edf5;
+            --muted: #8b9bb3;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: "Outfit", system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            font-size: 1rem;
+            overflow-x: hidden;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 120% 80% at 50% -10%, rgba(94, 234, 212, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse 90% 50% at 20% 30%, rgba(212, 168, 87, 0.06), transparent 45%),
+                radial-gradient(ellipse 80% 60% at 90% 50%, rgba(167, 139, 250, 0.06) 0%, transparent 45%),
+                linear-gradient(180deg, #0a0e14 0%, #0d1117 50%, #0a0e14 100%);
+            z-index: -2;
+        }
+        .top {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.85rem 1.5rem;
+            background: rgba(7, 10, 14, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .top a {
+            color: var(--janet-cyan);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .top a:hover { text-decoration: underline; text-underline-offset: 3px; }
+        .top .crumb {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        .top .crumb strong { color: var(--sage-gold); font-weight: 600; }
+        header.page-hero {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 2rem;
+            text-align: center;
+        }
+        header.page-hero h1 {
+            font-size: clamp(1.75rem, 5vw, 2.75rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.5rem;
+        }
+        header.page-hero h1 span {
+            background: linear-gradient(120deg, var(--sage-gold), var(--janet-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        header.page-hero .lede {
+            color: var(--muted);
+            max-width: 36rem;
+            margin: 0 auto 1rem;
+            font-size: 1.05rem;
+        }
+        header.page-hero .pill {
+            display: inline-block;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--sage-gold);
+            border: 1px solid var(--sage-gold-dim);
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            margin-top: 0.5rem;
+        }
+        main { max-width: 720px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+        h2 {
+            font-size: 1.35rem;
+            margin: 2.5rem 0 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text);
+        }
+        h2:first-of-type { border-top: none; margin-top: 0; }
+        .note {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-left: 3px solid var(--janet-cyan);
+            border-radius: 10px;
+            padding: 1rem 1.15rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+            color: var(--muted);
+        }
+        .note code { color: var(--janet-cyan); }
+        p { margin: 0.75rem 0; color: var(--muted); }
+        p strong { color: var(--text); }
+        ul { margin: 0.5rem 0 1rem 1.25rem; color: var(--muted); }
+        li { margin: 0.35rem 0; }
+        .snippet {
+            position: relative;
+            margin: 1rem 0;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: #0e1218;
+            overflow: hidden;
+        }
+        .snippet header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.45rem 0.65rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid var(--glass-border);
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.68rem;
+            color: var(--sage-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .snippet pre {
+            margin: 0;
+            padding: 1rem 1.1rem;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.78rem;
+            line-height: 1.45;
+            color: #c8d4e4;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .copy-btn {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.65rem;
+            cursor: pointer;
+            background: rgba(212, 168, 87, 0.15);
+            color: var(--sage-gold);
+            border: 1px solid var(--sage-gold-dim);
+            padding: 0.2rem 0.55rem;
+            border-radius: 6px;
+        }
+        .copy-btn:hover { background: rgba(212, 168, 87, 0.28); }
+        .copy-btn.copied { color: var(--janet-cyan); border-color: rgba(94, 234, 212, 0.4); }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        th, td {
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem 0.65rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        th { background: rgba(255, 255, 255, 0.04); color: var(--text); }
+        td { color: var(--muted); }
+        footer.guide-footer {
+            text-align: center;
+            padding: 2rem 1.5rem 3rem;
+            border-top: 1px solid var(--glass-border);
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+        footer.guide-footer a { color: var(--janet-cyan); text-decoration: none; }
+        footer.guide-footer a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <nav class="top">
+        <span class="crumb"><strong>Great Sage</strong> · operator guide</span>
+        <div>
+            <a href="index.html">← What can Janet do?</a>
+        </div>
+    </nav>
+
+    <header class="page-hero">
+        <h1><span>Remote Janet</span> · Tailscale</h1>
+        <p class="lede">Reach Janet at home on <strong>8080</strong> (API) and <strong>8765</strong> (Call Janet WebSocket) from phone or laptop — <strong>no public port forwarding</strong>. Replace <code>YOUR-JANET-HOST.your-tailnet.ts.net</code> with your MagicDNS name or Tailscale <code>100.x</code> IP.</p>
+        <span class="pill">Copy-paste · janet-mesh · privacy-first</span>
+    </header>
+
+    <main>
+        <h2>Before you start</h2>
+        <ul>
+            <li>Tailscale account (free tier is fine)</li>
+            <li>Same tailnet on every device</li>
+            <li><code>JANET_API_HOST=0.0.0.0</code> on hosts that answer remotely</li>
+        </ul>
+
+        <h2>1 · Install janet-mesh + Tailscale</h2>
+        <div class="snippet">
+            <header><span>bash</span><button type="button" class="copy-btn" data-copy>copy</button></header>
+            <pre>brew tap MzxzD/janet && brew install MzxzD/janet/janet-mesh</pre>
+        </div>
+        <div class="snippet">
+            <header><span>Linux — tailscale service</span><button type="button" class="copy-btn" data-copy>copy</button></header>
+            <pre>brew services start tailscale
+sudo tailscale up</pre>
+        </div>
+        <div class="snippet">
+            <header><span>Sanity check</span><button type="button" class="copy-btn" data-copy>copy</button></header>
+            <pre>tailscale status
+tailscale ip -4
+janet-mesh-env</pre>
+        </div>
+        <p>Enable <strong>MagicDNS</strong> in the <a href="https://login.tailscale.com/" target="_blank" rel="noopener">Tailscale admin console</a>.</p>
+
+        <h2>2 · Bind Janet on the host</h2>
+        <div class="snippet">
+            <header><span>Environment</span><button type="button" class="copy-btn" data-copy>copy</button></header>
+            <pre>export JANET_API_HOST=0.0.0.0
+janet-api-server</pre>
+        </div>
+        <div class="note">Put the same env in your LaunchAgent plist, systemd unit, or menu bar starter. WebSocket for Call Janet: run <code>simple_websocket_server.py</code> from janet-seed if that’s your stack.</div>
+
+        <h2>3 · Linux firewall (ufw)</h2>
+        <div class="snippet">
+            <header><span>Allow Janet on tailscale0</span><button type="button" class="copy-btn" data-copy>copy</button></header>
+            <pre>sudo ufw allow in on tailscale0 to any port 22
+sudo ufw allow in on tailscale0 to any port 8080
+sudo ufw allow in on tailscale0 to any port 8765
+sudo ufw allow in on tailscale0 to any port 9090
+sudo ufw reload
+sudo ufw status</pre>
+        </div>
+
+        <h2>4 · janet-peer trusted_networks</h2>
+        <div class="snippet">
+            <header><span>~/.config/janet-peer/config.toml</span><button type="button" class="copy-btn" data-copy>copy</button></header>
+            <pre>trusted_networks = [
+    "192.168.0.0/16",
+    "10.0.0.0/8",
+    "172.16.0.0/12",
+    "100.64.0.0/10",
+]</pre>
+        </div>
+
+        <h2>5 · iPhone (Call Janet)</h2>
+        <div class="snippet">
+            <header><span>Server URL (Settings)</span><button type="button" class="copy-btn" data-copy>copy</button></header>
+            <pre>ws://YOUR-JANET-HOST.your-tailnet.ts.net:8765</pre>
+        </div>
+        <p>Install the Tailscale app; sign in to the <strong>same</strong> tailnet.</p>
+
+        <h2>6 · Health check from laptop</h2>
+        <div class="snippet">
+            <header><span>curl</span><button type="button" class="copy-btn" data-copy>copy</button></header>
+            <pre>curl -sS "http://YOUR-JANET-HOST.your-tailnet.ts.net:8080/health"</pre>
+        </div>
+
+        <h2>7 · Cursor (Composer / Agent)</h2>
+        <div class="snippet">
+            <header><span>User settings.json</span><button type="button" class="copy-btn" data-copy>copy</button></header>
+            <pre>"cursor.openai.baseUrl": "http://YOUR-JANET-HOST.your-tailnet.ts.net:8080/v1",
+"cursor.openai.apiKey": "janet-local-dev"</pre>
+        </div>
+
+        <h2>8 · Continue.dev</h2>
+        <div class="snippet">
+            <header><span>~/.continue/config.yaml (per model)</span><button type="button" class="copy-btn" data-copy>copy</button></header>
+            <pre>apiBase: http://YOUR-JANET-HOST.your-tailnet.ts.net:8080/v1
+apiKey: janet-local-dev</pre>
+        </div>
+
+        <h2>9 · Snippet helper (repo or Homebrew)</h2>
+        <div class="snippet">
+            <header><span>From janet-seed/scripts</span><button type="button" class="copy-btn" data-copy>copy</button></header>
+            <pre>bash janet_cursor_tailscale_snippet.sh --skip-health YOUR-JANET-HOST.your-tailnet.ts.net</pre>
+        </div>
+        <div class="snippet">
+            <header><span>After brew ships the binary</span><button type="button" class="copy-btn" data-copy>copy</button></header>
+            <pre>janet-cursor-tailscale-snippet --skip-health YOUR-JANET-HOST.your-tailnet.ts.net</pre>
+        </div>
+
+        <h2>Verification</h2>
+        <table>
+            <thead><tr><th>Check</th><th>Action</th></tr></thead>
+            <tbody>
+                <tr><td>Tailscale</td><td><code>tailscale ping OTHER-NODE</code></td></tr>
+                <tr><td>API</td><td><code>curl …/health</code></td></tr>
+                <tr><td>iPhone</td><td>LTE + Tailscale → Call Janet connected</td></tr>
+                <tr><td>IDE</td><td>One Agent + one Continue turn</td></tr>
+            </tbody>
+        </table>
+
+        <div class="note">Full runbook with repo links: <strong>Janet-Projects/janet_orchestration_module/docs/REMOTE_ACCESS_TAILSCALE.md</strong>. Inference stays on your hardware; Tailscale is only the overlay.</div>
+    </main>
+
+    <footer class="guide-footer">
+        <p><a href="https://greatsage.org/">greatsage.org</a> · <a href="https://heyjanet.org/">heyjanet.org</a> — What can Janet do?</p>
+        <p>Open source · Offline-first · Constitutional AI</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll(".snippet").forEach(function (wrap) {
+            var btn = wrap.querySelector("[data-copy]");
+            var pre = wrap.querySelector("pre");
+            if (!btn || !pre) return;
+            btn.addEventListener("click", function () {
+                var t = pre.textContent;
+                navigator.clipboard.writeText(t).then(function () {
+                    btn.textContent = "copied";
+                    btn.classList.add("copied");
+                    setTimeout(function () {
+                        btn.textContent = "copy";
+                        btn.classList.remove("copied");
+                    }, 1600);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
