@@ -3,11 +3,18 @@
   "title": "What can Janet do?",
   "tagline": "Self-updating portfolio of the Janet AI ecosystem. Repos, descriptions, and releases from GitHub.",
   "repos": [
-    "MzxzD/Janet-Projects",
-    "MzxzD/Janet-Awakening",
     "MzxzD/Janet-seed",
+    "MzxzD/Janet-Awakening",
+    "MzxzD/JanetOS",
+    "MzxzD/JanetXPinchTab-Double-Soul",
+    "MzxzD/JanetXBlender-Double-Soul",
+    "MzxzD/JanetXApple-Passwords-Fusion",
     "MzxzD/home-assistant-janet",
-    "MzxzD/homebrew-janet"
+    "MzxzD/homebrew-janet",
+    "MzxzD/janet-install",
+    "MzxzD/jack-cluster",
+    "MzxzD/greatsage-org",
+    "MzxzD/what-can-janet-do"
   ],
   "readmeMaxLength": 400,
   "showStars": true,

@@ -17,13 +17,23 @@ Generates `index.html` from `template.html` and `config.json`.
 Edit `config.json`:
 
 - **domain** – Custom domain for CNAME (e.g. `heyjanet.org`)
-- **repos** – List of `owner/repo` to fetch
+- **repos** – List of `owner/repo` to fetch (use **public** repos here if you rely on GitHub Actions only: the default `GITHUB_TOKEN` cannot read other private repositories)
 - **readmeMaxLength** – Max chars for README excerpt (default 400)
 - **showStars** / **showReleases** – Toggle badges and release links
 
 ## Deploy
 
 ### Cloudflare Pages
+
+**Recommended: manual deploy** — run after pushing changes:
+
+```bash
+npx wrangler pages deploy . --project-name=what-can-janet-do
+```
+
+Git push can trigger a deploy, but if the live site shows stale content, use the wrangler command above.
+
+Initial setup:
 
 1. Create a repo (e.g. `MzxzD/what-can-janet-do`) and push this project
 2. Connect to Cloudflare Pages (Build: none, output: root)
@@ -37,7 +47,7 @@ The workflow runs:
 - On push to `main` or `master`
 - Every 6 hours (`cron: '0 */6 * * *'`)
 
-It fetches GitHub data, rebuilds `index.html`, and commits if changed. Cloudflare Pages will redeploy on push.
+It fetches GitHub data, rebuilds `index.html`, and commits if changed.
 
 ## Custom Domain: heyjanet.org
 

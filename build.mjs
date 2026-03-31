@@ -141,6 +141,13 @@ async function main() {
 
   const title = escapeHtml(config.title || 'What can Janet do?');
   const domain = config.domain || 'heyjanet.org';
+  if (cards.length === 0 && repos.length > 0) {
+    console.error(
+      'Build produced zero repo cards (GitHub API errors or rate limit?). Not overwriting index.html.',
+    );
+    process.exit(1);
+  }
+
   const html = template
     .replace(/\{\{TITLE\}\}/g, title)
     .replace('{{TAGLINE}}', escapeHtml(config.tagline || ''))

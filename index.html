@@ -118,6 +118,22 @@
             margin-bottom: 0.75rem;
             animation: heroTitle 1s ease-out 0.2s both;
         }
+        .hero .guide-cta {
+            margin-top: 0.35rem;
+            font-size: clamp(0.88rem, 2vw, 1rem);
+            font-weight: 500;
+            animation: heroTitle 1s ease-out 0.22s both;
+        }
+        .hero .guide-cta a {
+            color: var(--janet-cyan);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(94, 234, 212, 0.35);
+            padding-bottom: 1px;
+        }
+        .hero .guide-cta a:hover {
+            border-bottom-color: var(--janet-cyan);
+            filter: brightness(1.08);
+        }
         .hero .sub {
             font-size: 0.8rem;
             color: var(--text-muted);
@@ -375,6 +391,8 @@
             opacity: 0.6;
         }
         footer p { margin-bottom: 0.5rem; }
+        footer .guide-link { margin-top: 0.75rem; font-size: 0.92rem; }
+        footer .guide-link a { color: var(--janet-blue); }
         footer a {
             color: var(--janet-cyan);
             text-decoration: none;
@@ -394,8 +412,9 @@
             <img src="assets/janet-mascot.png" alt="Janet" class="mascot">
             <h1><span>What can Janet do?</span></h1>
             <p class="tagline">Self-updating portfolio of the Janet AI ecosystem. Repos, descriptions, and releases from GitHub.</p>
+            <p class="guide-cta"><a href="remote-access-tailscale.html">Remote setup — Tailscale, Cursor &amp; iPhone · copy-paste guide</a></p>
             <p class="sub">Open source · Voice-first · Offline-first · Constitutional AI</p>
-            <p class="build-time">Last updated: 2026-03-31 07:21:39</p>
+            <p class="build-time">Last updated: 2026-03-31 08:31:13</p>
         </div>
         <a href="#vision" class="scroll-hint">Scroll ↓</a>
     </header>
@@ -406,7 +425,7 @@
         <blockquote>
             Replace proprietary AI assistants (Siri, Alexa, Google) with an open, privacy-respecting, offline-first alternative that you truly own and control.
         </blockquote>
-        <p>Janet spans a full operating system (JanetOS), native mobile apps, IDE integration, music creation, and home automation — all built on constitutional AI and 16 axioms that govern behavior.</p>
+        <p>Janet spans a full operating system (JanetOS), native mobile and desktop apps, IDE integration (Janet Awakening), music creation (JanetDJ), NAS and 3D bridges (Double Soul), and home automation — governed by <a href="https://github.com/MzxzD/Janet-seed/blob/main/constitution/AXIOMS.md" target="_blank" rel="noopener noreferrer">20 constitutional axioms</a>.</p>
     </section>
 
     <section id="double-soul">
@@ -419,7 +438,7 @@
         </div>
         <div class="glass-panel double-soul-card">
             <h3>How does it work?</h3>
-            <p>Janet's core (janet-seed) stays in charge. The Double Soul is the bridge: it translates between you and that other system. <strong>Soul Check</strong> (Axiom 10) makes sure risky actions are confirmed before they run. Examples: browse the web (<strong>JanetXPinchTab</strong>), create 3D (<strong>JanetXBlender</strong>), wear Janet on your glasses (<strong>JanetXHalo</strong>), and more.</p>
+            <p>Janet's core (janet-seed) stays in charge. The Double Soul is the bridge: it translates between you and that other system. <strong>Soul Check</strong> (confirmation protocol) verifies intent for risky actions, alongside <strong>Soul Guard</strong> (Axiom 10). Examples: browse the web (<strong>JanetXPinchTab</strong>), create 3D (<strong>JanetXBlender</strong>), media on NAS (<strong>JanetXNAS</strong>), smart glasses (<strong>JanetXHalo</strong>), and more.</p>
             <div class="soul-unison-visual">
                 <span></span><span class="plus">+</span><span></span>
             </div>
@@ -439,6 +458,13 @@
         <div class="projects-grid">
 
             <article class="project-card">
+                <h3><a href="https://github.com/MzxzD/Janet-seed">Janet-seed</a></h3>
+                
+                <p>🌱 J.A.N.E.T. Seed Just A Neat Evolving Thinker — Seed Edition J.A.N.E.T. Seed is the constitutional, offline-first seed of a personal AI companion designed to think with you — not over you. This repository contains the core system only: - Janet's identity - Her constitutional axioms - Her memory rules - Her presence and conversation loops - Her consent-first delegation model J.A.N.E.T. Seed is…</p>
+                
+            </article>
+
+            <article class="project-card">
                 <h3><a href="https://github.com/MzxzD/Janet-Awakening">Janet-Awakening</a></h3>
                 
                 <p>Janet Awakening Giving Janet consciousness in your IDE --- Overview Janet Awakening is the project that brought Janet to life as a fully-powered AI coding assistant integrated directly into Cursor IDE. This project transforms Janet from a concept into a living, breathing AI companion that can write code, debug issues, and help you build amazing things - all while maintaining her constitutional…</p>
@@ -446,9 +472,30 @@
             </article>
 
             <article class="project-card">
-                <h3><a href="https://github.com/MzxzD/Janet-seed">Janet-seed</a></h3>
+                <h3><a href="https://github.com/MzxzD/JanetOS">JanetOS</a></h3>
+                <div class="meta"><span>★ 1</span></div>
+                <p>JanetOS Just A Neat Evolving Thinker — Operating System.  NEW VISION (2026-02-27): JanetOS is becoming a full operating system for Apple Silicon where Janet is the Apple Intelligence - the AI assistant layer built into the OS, just like Siri + Apple Intelligence on macOS, but offline-first, constitutional, and open source. Built on: Asahi Linux (mature Apple Silicon support) + Janet (voice-first…</p>
                 
-                <p>🌱 J.A.N.E.T. Seed Just A Neat Evolving Thinker — Seed Edition J.A.N.E.T. Seed is the constitutional, offline-first seed of a personal AI companion designed to think with you — not over you. This repository contains the core system only: - Janet's identity - Her constitutional axioms - Her memory rules - Her presence and conversation loops - Her consent-first delegation model J.A.N.E.T. Seed is…</p>
+            </article>
+
+            <article class="project-card">
+                <h3><a href="https://github.com/MzxzD/JanetXPinchTab-Double-Soul">JanetXPinchTab-Double-Soul</a></h3>
+                
+                <p>JanetXPinchTab Double Soul Janet + PinchTab — Browser control for the Janet AI companion ecosystem.   Part of the Janet Ecosystem. This project lives as a module inside janet-max, the Janet-seed integration system. JanetXPinchTab Double Soul lets Janet navigate the web, read pages, and perform browser actions via voice or chat — gated by Soul Check (Axiom 10: Soul Guard). Powered by PinchTab Uses…</p>
+                
+            </article>
+
+            <article class="project-card">
+                <h3><a href="https://github.com/MzxzD/JanetXBlender-Double-Soul">JanetXBlender-Double-Soul</a></h3>
+                
+                <p>JanetXBlender Double Soul Janet + Blender — 3D modeling control for the Janet AI companion ecosystem.   Part of the Janet Ecosystem. JanetXBlender Double Soul lets Janet create and manipulate 3D scenes in Blender via voice or chat — gated by Soul Check (Axiom 10: Soul Guard). Double Soul The &quot;Double Soul&quot; name reflects Janet's architecture: the Constitutional Soul (janet-seed, vault memory,…</p>
+                
+            </article>
+
+            <article class="project-card">
+                <h3><a href="https://github.com/MzxzD/JanetXApple-Passwords-Fusion">JanetXApple-Passwords-Fusion</a></h3>
+                
+                <p>JanetXApple: Passwords Fusion Unified credential Double Soul for the Janet ecosystem. Uses platform Keychain (macOS Passwords, Linux Secret Service, Windows Credential Manager) as storage — the OS access prompt IS Soul Check (Axiom 10). Status: Working. Keychain-backed credential Double Soul for janet-max, PinchTab, and Cursor. Install (macOS) ``bash Via Homebrew brew tap MzxzD/janet brew install…</p>
                 
             </article>
 
@@ -465,6 +512,34 @@
                 <p>Homebrew Janet Homebrew tap for the Janet AI ecosystem — voice-first, offline, constitutional AI. Install (one-liner) ``bash brew tap MzxzD/janet brew install MzxzD/janet/janet ` Mesh bundle (Janet Ultimate–style: full Janet + janet-peer + Tailscale overlay): `bash brew tap MzxzD/janet &amp;&amp; brew install MzxzD/janet/janet-mesh ` Then: tailscale up, run janet-mesh-env for IPs and hints, export…</p>
                 
             </article>
+
+            <article class="project-card">
+                <h3><a href="https://github.com/MzxzD/janet-install">janet-install</a></h3>
+                
+                <p>janet-install One-liner install for Janet AI (janet-seed + deps). Public script so curl works without repo access. One-liners Install and run all tests (recommended): ``bash curl -sSL https://raw.githubusercontent.com/MzxzD/janet-install/main/install.sh | bash -s -- --test ` Install only: `bash curl -sSL https://raw.githubusercontent.com/MzxzD/janet-install/main/install.sh | bash ` Install and…</p>
+                
+            </article>
+
+            <article class="project-card">
+                <h3><a href="https://github.com/MzxzD/jack-cluster">jack-cluster</a></h3>
+                
+                <p>JACK-Cluster J.A.C.K. — Janet Architecture for Companions (Krazy). Run Lynda, Janet, and Darkness in parallel via Ollama, fully offline. Concept - Lynda: Business, strategy, investors - Janet: UX, ethics, constitutional fit - Darkness: Code, architecture, debugging Same prompt, three perspectives, parallel execution. Extended personas (Lumina, Bastion, Blaze, Archivist, Sentinel) are documented…</p>
+                
+            </article>
+
+            <article class="project-card">
+                <h3><a href="https://github.com/MzxzD/greatsage-org">greatsage-org</a></h3>
+                
+                <p>Source for greatsage.org — The Great Sage company site</p>
+                
+            </article>
+
+            <article class="project-card">
+                <h3><a href="https://github.com/MzxzD/what-can-janet-do">what-can-janet-do</a></h3>
+                
+                <p>What can Janet do? Self-updating portfolio webpage for the Janet AI ecosystem. Pulls repo list, README descriptions, and release info from GitHub on a schedule. Live: https://heyjanet.org (fallback: what-can-janet-do.pages.dev) | Docs: DOCUMENTATION.md Quick Start ``bash node build.mjs ` Generates index.html from template.html and config.json. Config Edit config.json: - domain – Custom domain for…</p>
+                
+            </article>
         </div>
     </section>
 
@@ -474,15 +549,16 @@
             <div class="principle"><strong>Privacy First</strong> — Cluster-only, no cloud</div>
             <div class="principle"><strong>User Sovereignty</strong> — You own your data</div>
             <div class="principle"><strong>Offline Capable</strong> — Core features work offline</div>
-            <div class="principle"><strong>Constitutional</strong> — 16 axioms govern behavior</div>
+            <div class="principle"><strong>Constitutional</strong> — 20 axioms govern behavior</div>
             <div class="principle"><strong>Voice-First</strong> — Natural conversation</div>
-            <div class="principle"><strong>Cross-Platform</strong> — iOS, macOS, Linux, Windows</div>
+            <div class="principle"><strong>Cross-Platform</strong> — iOS, watchOS, macOS, Windows, Linux, Android</div>
             <div class="principle"><strong>Open Source</strong> — GPL/MIT licensing</div>
         </div>
     </section>
 
     <footer>
         <p><a href="https://heyjanet.bot">heyjanet.bot</a> · <a href="https://xn--yckwaps3i.com">ジャネット.com</a></p>
+        <p class="guide-link"><a href="remote-access-tailscale.html">Great Sage · Remote Janet (Tailscale) — operator guide</a></p>
         <p class="domains">wss://heyjanet.bot · wss://xn--yckwaps3i.com</p>
     </footer>
 </body>
