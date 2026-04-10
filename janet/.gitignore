@@ -1,0 +1,6 @@
+# Local / OS
+.DS_Store
+
+# Optional local secrets (if you add scripts later)
+.env
+scripts/.env

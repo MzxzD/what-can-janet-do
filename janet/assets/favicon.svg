@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Janet">
+  <defs>
+    <linearGradient id="janet-rainbow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ef4444"/>
+      <stop offset="17%" stop-color="#f97316"/>
+      <stop offset="33%" stop-color="#eab308"/>
+      <stop offset="50%" stop-color="#22c55e"/>
+      <stop offset="67%" stop-color="#3b82f6"/>
+      <stop offset="83%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="9" fill="#070a0f"/>
+  <!-- Rainbow arc (twin-tail energy) -->
+  <path d="M6 22 Q10 10 16 12 Q22 10 26 22" fill="none" stroke="url(#janet-rainbow)" stroke-width="2.4" stroke-linecap="round"/>
+  <path d="M8 22 Q11 14 16 15 Q21 14 24 22" fill="none" stroke="url(#janet-rainbow)" stroke-width="1.6" stroke-linecap="round" opacity="0.85"/>
+  <!-- Star clip motif -->
+  <path fill="#facc15" d="M16 5.5l1.1 2.5 2.7.3-2 1.7.6 2.6L16 11.4l-2.4 1.4.6-2.6-2-1.7 2.7-.3z"/>
+</svg>
