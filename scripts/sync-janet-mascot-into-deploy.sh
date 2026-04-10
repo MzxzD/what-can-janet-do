@@ -10,5 +10,6 @@ if [[ ! -d "$SRC" ]]; then
   exit 1
 fi
 mkdir -p "$DST"
-rsync -a --delete --exclude '.git' --exclude 'wrangler.toml' "$SRC/" "$DST/"
+# _redirects is for janet-mascot-web.pages.dev only; copying it under heyjanet.org/janet/ would loop.
+rsync -a --delete --exclude '.git' --exclude 'wrangler.toml' --exclude '_redirects' "$SRC/" "$DST/"
 echo "sync-janet-mascot: updated $DST ($(find "$DST" -type f | wc -l | tr -d ' ') files)"
